@@ -176,9 +176,9 @@ async function cargarGraficas() {
             edad
         ] = await Promise.all([
             fetch('http://66.97.36.159:8080/predict/probability/gender').then(r => r.json()),
-            fetch("http://66.97.36.159:8080//probability/region").then(r => r.json()),
-            fetch("http://66.97.36.159:8080//probability/subscription").then(r => r.json()),
-            fetch("http://66.97.36.159:8080//probability/age").then(r => r.json())
+            fetch("http://66.97.36.159:8080/probability/region").then(r => r.json()),
+            fetch("http://66.97.36.159:8080/probability/subscription").then(r => r.json()),
+            fetch("http://66.97.36.159:8080/probability/age").then(r => r.json())
         ]);
 
         dibujarGrafica(genero.data, "chartRiesgo", "bar", "Género");
