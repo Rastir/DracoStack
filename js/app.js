@@ -51,7 +51,7 @@ async function buscarCliente() {
 
     try {
         const response = await fetch(
-            `http://localhost:8080/predict/client/${id}`
+            `http://66.97.36.159:8080//predict/client/${id}`
         );
 
         if (!response.ok) {
@@ -139,7 +139,7 @@ document
 
         try {
             const response = await fetch(
-                "http://localhost:8080/predict",
+                "http://66.97.36.159:8080//predict",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -175,10 +175,10 @@ async function cargarGraficas() {
             suscripcion,
             edad
         ] = await Promise.all([
-            fetch("http://localhost:8080/probability/gender").then(r => r.json()),
-            fetch("http://localhost:8080/probability/region").then(r => r.json()),
-            fetch("http://localhost:8080/probability/subscription").then(r => r.json()),
-            fetch("http://localhost:8080/probability/age").then(r => r.json())
+            fetch("http://66.97.36.159:8080//probability/gender").then(r => r.json()),
+            fetch("http://66.97.36.159:8080//probability/region").then(r => r.json()),
+            fetch("http://66.97.36.159:8080//probability/subscription").then(r => r.json()),
+            fetch("http://66.97.36.159:8080//probability/age").then(r => r.json())
         ]);
 
         dibujarGrafica(genero.data, "chartRiesgo", "bar", "Género");
