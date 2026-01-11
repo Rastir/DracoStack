@@ -1,0 +1,224 @@
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 100%;
+    max-width: 1250px;
+    padding: 20px;
+}
+
+
+/*HEADER & TABS */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 55px;
+    margin-bottom: 10px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+
+.tab-btn {
+    padding: 12px 25px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: #00c6ff;
+    color: #000000;
+    border-color: #00c6ff;
+}
+
+
+/*LAYOUT GENERAL*/
+.card-layout {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    width: 100%;
+}
+
+.grid-manual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    width: 100%;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+
+/*FORMULARIOS*/
+form label {
+    display: block;
+    margin-top: 15px;
+    color: #00c6ff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+form input,
+form select,
+#clientId {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: none;
+    background: #ffffff;
+    color: #333333;
+}
+
+
+/*ESTADÍSTICAS*/
+.stats-wrapper {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-title {
+    text-align: center;
+    color: #00c6ff;
+    margin-bottom: 25px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2x2 en escritorio */
+    gap: 25px;
+}
+
+.chart-card {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 12px;
+    height: 380px;
+}
+
+
+/*RESULTADOS & API*/
+.resultado {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    background: rgba(0, 198, 255, 0.1);
+    border: 1px solid #00c6ff;
+}
+
+#resultadoBusqueda p {
+    margin: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.api-box {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 15px;
+    border-radius: 8px;
+    font-family: monospace;
+    color: #00ffcc;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow-x: auto;
+}
+
+.search-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+
+/*BOTONES & UTILIDADES*/
+button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 15px;
+    background: #00c6ff;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 198, 255, 0.4);
+}
+
+/* Botón pequeño en esquina para exportar */
+.stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.export-btn {
+    width: auto;
+    padding: 8px 12px;
+    background: #2ecc71;
+    border-radius: 6px;
+    color: #ffffff;
+    font-weight: bold;
+    border: none;
+}
+
+.export-btn:hover {
+    background: #27ae60;
+}
+
+.hidden {
+    display: none;
+}
+
+.error {
+    color: #ff6b6b;
+    font-weight: bold;
+}
+
+/*RESPONSIVE*/
+@media (max-width: 900px) {
+    .grid-manual,
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .card-layout {
+        flex-direction: column;
+    }
+}

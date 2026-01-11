@@ -2,84 +2,160 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <title>Análisis de Churn</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Análisis de Churn</title>
-    <link rel="stylesheet" href="login-styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
+
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <img src="https://i.postimg.cc/vTD7Mx7b/Whats-App-Image-2025-12-18-at-8-49-53-PM.jpg" alt="DracoStack Logo" class="logo">
-                <h1>Bienvenido</h1>
-                <p>Inicia sesión para acceder</p>
-            </div>
+<div class="container">
 
-            <div class="error-message" id="errorMessage"></div>
-
-            <form id="loginForm" class="login-form">
-                <div class="form-group">
-                    <label for="email">Correo Electrónico</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        name="email" 
-                        required
-                        placeholder="tu@email.com"
-                    >
-                </div>
-
-                <div class="form-group">
-                    <label for="password">Contraseña</label>
-                    <input 
-                        type="password" 
-                        id="password" 
-                        name="password" 
-                        required
-                        placeholder="••••••••"
-                    >
-                </div>
-
-                <div class="form-options">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="remember">
-                        <span>Recordarme</span>
-                    </label>
-                    <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                </div>
-
-                <button type="submit" class="btn btn-primary" id="loginBtn">
-                    <span class="btn-text">Iniciar Sesión</span>
-                    <div class="spinner" id="loginSpinner"></div>
-                </button>
-            </form>
-
-            <div class="divider">
-                <span>O continúa con</span>
-            </div>
-
-            <button type="button" class="btn btn-google" id="googleBtn">
-                <svg class="google-icon" viewBox="0 0 24 24">
-                    <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                    <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                    <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                    <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-                </svg>
-                <span>Continuar con Google</span>
-            </button>
-
-            <div class="signup-link">
-                <p>¿No tienes una cuenta? <a href="#">Regístrate aquí</a></p>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <img src="/img/logo.png" alt="Empresa" class="logo">
+            <div class="header-text">
+                <h1>Análisis de Churn</h1>
+                <p>Predicción Inteligente de Cancelamiento de Clientes</p>
             </div>
         </div>
+    </header>
 
-        <div class="background-decoration">
-            <div class="decoration-circle decoration-1"></div>
-            <div class="decoration-circle decoration-2"></div>
-            <div class="decoration-circle decoration-3"></div>
-        </div>
+    <!-- TABS -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="cambiarTab(this, 'manual')">
+            Cálculo Manual
+        </button>
+        <button class="tab-btn" onclick="cambiarTab(this, 'busqueda')">
+            Búsqueda
+        </button>
+        <button class="tab-btn" onclick="cambiarTab(this, 'stats')">
+            Análisis Avanzado
+        </button>
     </div>
 
-    <script src="login-script.js"></script>
+    <!-- SECCIÓN MANUAL -->
+    <section class="seccion" id="manual">
+        <div class="card-layout">
+            <div class="grid-manual">
+
+                <!-- FORMULARIO -->
+                <div class="card">
+                    <h2>📊 Datos del Cliente</h2>
+
+                    <form id="churnForm">
+                        <label for="age">Edad</label>
+                        <input type="number" id="age" placeholder="Ej: 52" required>
+
+                        <label for="gender">Género</label>
+                        <select id="gender" required>
+                            <option value="" disabled selected>Seleccionar...</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+
+                        <label for="subscription_type">Tipo de Suscripción</label>
+                        <select id="subscription_type" required>
+                            <option value="" disabled selected>Seleccionar...</option>
+                            <option value="Basic">Basic</option>
+                            <option value="Standard">Standard</option>
+                            <option value="Premium">Premium</option>
+                        </select>
+
+                        <label for="watch_hours">Horas de Visualización</label>
+                        <input type="number" step="0.1" id="watch_hours" placeholder="Ej: 1.1" required>
+
+                        <label for="last_login_days">Días desde último login</label>
+                        <input type="number" id="last_login_days" placeholder="Ej: 30" required>
+
+                        <label for="region">Región</label>
+                        <select id="region" required>
+                            <option value="" disabled selected>Seleccionar...</option>
+                            <option value="Africa">África</option>
+                            <option value="Europe">Europa</option>
+                            <option value="Asia">Asia</option>
+                            <option value="Oceania">Oceanía</option>
+                            <option value="SouthAmerica">Sudamérica</option>
+                            <option value="NorthAmerica">América del Norte</option>
+                        </select>
+
+                        <button type="submit">ANALIZAR CLIENTE</button>
+                    </form>
+
+                    <div id="resultado" class="resultado hidden"></div>
+                </div>
+
+                <!-- API PREVIEW -->
+                <div class="card">
+                    <h2>📡 Configuración de la API</h2>
+                    <pre id="apiPreview" class="api-box">
+POST /predict
+Content-Type: application/json
+
+{
+  "age": 0,
+  "gender": "",
+  "subscription_type": "",
+  "watch_hours": 0,
+  "last_login_days": 0,
+  "region": ""
+}
+                        </pre>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN BÚSQUEDA -->
+    <section class="seccion hidden" id="busqueda">
+        <div class="card-layout">
+            <div class="card search-container">
+                <h2>🔍 Búsqueda de Cliente</h2>
+
+                <label for="clientId">ID del Cliente</label>
+                <input type="text" id="clientId" placeholder="Ej: CUS-6BF81F27">
+
+                <button onclick="buscarCliente()">BUSCAR CLIENTE</button>
+
+                <div id="resultadoBusqueda" class="resultado hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN ESTADÍSTICAS -->
+    <section class="seccion hidden" id="stats">
+        <div class="card">
+            <div class="stats-header">
+                <h2 style="text-align: center; color: #00c6ff; margin:0; padding:0;">📈 Análisis Avanzado</h2>
+                <!-- Botón exportar PDF en esquina superior derecha -->
+                <button id="exportPdfBtn" class="export-btn" onclick="exportChartsToPDF()">Exportar a PDF</button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="chart-card">
+                    <canvas id="chartRiesgo"></canvas>
+                </div>
+                <div class="chart-card">
+                    <canvas id="chartSubscription"></canvas>
+                </div>
+                <div class="chart-card">
+                    <canvas id="chartRegion"></canvas>
+                </div>
+                <div class="chart-card">
+                    <canvas id="chartAge"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- jsPDF UMD -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="/js/app.js"></script>
 </body>
 </html>
