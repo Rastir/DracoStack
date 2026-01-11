@@ -51,7 +51,7 @@ async function buscarCliente() {
 
     try {
         const response = await fetch(
-            `http://66.97.36.159:8080//predict/client/${id}`
+            `http://66.97.36.159:8080/predict/client/${id}`
         );
 
         if (!response.ok) {
@@ -139,7 +139,7 @@ document
 
         try {
             const response = await fetch(
-                "http://66.97.36.159:8080//predict",
+                "http://66.97.36.159:8080/predict",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
