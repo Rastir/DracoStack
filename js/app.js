@@ -51,7 +51,7 @@ async function buscarCliente() {
 
     try {
         const response = await fetch(
-            `https://66.97.36.159:8080/predict/client/${id}`
+            `https://collins-definitely-move-posting.trycloudflare.com/predict/client/${id}`
         );
 
         if (!response.ok) {
@@ -139,7 +139,7 @@ document
 
         try {
             const response = await fetch(
-                "https://66.97.36.159:8080/predict",
+                "https://collins-definitely-move-posting.trycloudflare.com//predict",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -175,10 +175,10 @@ async function cargarGraficas() {
             suscripcion,
             edad
         ] = await Promise.all([
-            fetch('https://66.97.36.159:8080/predict/probability/gender').then(r => r.json()),
-            fetch("https://66.97.36.159:8080/probability/region").then(r => r.json()),
-            fetch("https://66.97.36.159:8080/probability/subscription").then(r => r.json()),
-            fetch("https://66.97.36.159:8080/probability/age").then(r => r.json())
+            fetch('https://collins-definitely-move-posting.trycloudflare.com//predict/probability/gender').then(r => r.json()),
+            fetch("https://collins-definitely-move-posting.trycloudflare.com//probability/region").then(r => r.json()),
+            fetch("https://collins-definitely-move-posting.trycloudflare.com//probability/subscription").then(r => r.json()),
+            fetch("https://collins-definitely-move-posting.trycloudflare.com//probability/age").then(r => r.json())
         ]);
 
         dibujarGrafica(genero.data, "chartRiesgo", "bar", "Género");
