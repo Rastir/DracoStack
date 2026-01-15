@@ -51,7 +51,7 @@ async function buscarCliente() {
 
     try {
         const response = await fetch(
-            `http://localhost:8080/predict/client/${id}`
+            `https://definitely-poetry-few-bachelor.trycloudflare.com/predict/client/${id}`
         );
 
         if (!response.ok) {
@@ -142,7 +142,7 @@ document
 
         try {
             const response = await fetch(
-                "http://localhost:8080/predict",
+                "https://definitely-poetry-few-bachelor.trycloudflare.com/predict",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -178,10 +178,10 @@ async function cargarGraficas() {
             suscripcion,
             edad
         ] = await Promise.all([
-            fetch("http://localhost:8080/probability/gender").then(r => r.json()),
-            fetch("http://localhost:8080/probability/region").then(r => r.json()),
-            fetch("http://localhost:8080/probability/subscription").then(r => r.json()),
-            fetch("http://localhost:8080/probability/age").then(r => r.json())
+            fetch("https://definitely-poetry-few-bachelor.trycloudflare.com/predict/probability/gender").then(r => r.json()),
+            fetch("https://definitely-poetry-few-bachelor.trycloudflare.com/probability/region").then(r => r.json()),
+            fetch("https://definitely-poetry-few-bachelor.trycloudflare.com/probability/subscription").then(r => r.json()),
+            fetch("https://definitely-poetry-few-bachelor.trycloudflare.com/probability/age").then(r => r.json())
         ]);
 
         dibujarGrafica(genero.data, "chartRiesgo", "bar", "Género");
