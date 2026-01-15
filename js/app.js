@@ -178,7 +178,7 @@ async function cargarGraficas() {
             suscripcion,
             edad
         ] = await Promise.all([
-            fetch("https://definitely-poetry-few-bachelor.trycloudflare.com/predict/probability/gender").then(r => r.json()),
+            fetch("https://definitely-poetry-few-bachelor.trycloudflare.com/probability/gender").then(r => r.json()),
             fetch("https://definitely-poetry-few-bachelor.trycloudflare.com/probability/region").then(r => r.json()),
             fetch("https://definitely-poetry-few-bachelor.trycloudflare.com/probability/subscription").then(r => r.json()),
             fetch("https://definitely-poetry-few-bachelor.trycloudflare.com/probability/age").then(r => r.json())
