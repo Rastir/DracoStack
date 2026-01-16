@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Análisis de Churn</title>
@@ -8,176 +9,164 @@
 </head>
 
 <body>
-<div class="container">
+    <div class="container">
 
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-left">
-            <img src="/img/logo.png" alt="Empresa" class="logo">
-            <div class="header-text">
-                <h1>Análisis de Churn</h1>
-                <p>Predicción Inteligente de Cancelamiento de Clientes</p>
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-left">
+                <img src="/img/logo.png" alt="Empresa" class="logo">
+                <div class="header-text">
+                    <h1>Análisis de Churn</h1>
+                    <p>Predicción Inteligente de Cancelamiento de Clientes</p>
+                </div>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- TABS -->
-    <div class="tabs">
-        <button class="tab-btn active" onclick="cambiarTab(this, 'manual')">
-            Cálculo Manual
-        </button>
-        <button class="tab-btn" onclick="cambiarTab(this, 'busqueda')">
-            Búsqueda
-        </button>
-        <button class="tab-btn" onclick="cambiarTab(this, 'stats')">
-            Análisis Avanzado
-        </button>
+        <!-- TABS -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="cambiarTab(this, 'manual')">
+                Cálculo Manual
+            </button>
+            <button class="tab-btn" onclick="cambiarTab(this, 'busqueda')">
+                Búsqueda
+            </button>
+            <button class="tab-btn" onclick="cambiarTab(this, 'stats')">
+                Análisis Avanzado
+            </button>
+        </div>
+
+        <!-- SECCIÓN MANUAL -->
+        <section class="seccion" id="manual">
+            <div class="card-layout">
+                <div class="grid-manual">
+
+                    <!-- FORMULARIO -->
+                    <div class="card">
+                        <h2>📊 Datos del Cliente</h2>
+
+                        <form id="churnForm">
+                            <label for="age">Edad</label>
+                            <input type="number" id="age" name="age" placeholder="Ej: 52" min="18" max="100" required>
+
+                            <label for="gender">Género</label>
+                            <select id="gender" name="gender" required>
+                                <option value="" disabled selected>Seleccionar...</option>
+                                <option value="Male">Masculino</option>
+                                <option value="Female">Femenino</option>
+                            </select>
+
+                            <label for="subscription_type">Tipo de Suscripción</label>
+                            <select id="subscription_type" name="subscription_type" required>
+                                <option value="" disabled selected>Seleccionar...</option>
+                                <option value="Basic">Basic</option>
+                                <option value="Standard">Standard</option>
+                                <option value="Premium">Premium</option>
+                            </select>
+
+                            <label for="watch_hours">Horas de Visualización</label>
+                            <input type="number" step="0.1" id="watch_hours" name="watch_hours" placeholder="Ej: 1.1"
+                                min="0" required>
+
+                            <label for="region">Región</label>
+                            <select id="region" name="region" required>
+                                <option value="" disabled selected>Seleccionar...</option>
+                                <option value="Africa">África</option>
+                                <option value="Europe">Europa</option>
+                                <option value="Asia">Asia</option>
+                                <option value="Oceania">Oceanía</option>
+                                <option value="South America">Sudamérica</option>
+                                <option value="North America">América del Norte</option>
+                            </select>
+
+                            <label for="number_of_profiles">Número de perfiles</label>
+                            <input type="number" id="number_of_profiles" name="number_of_profiles" placeholder="Ej: 3"
+                                min="1" required>
+
+                            <label for="payment_method">Método de pago</label>
+                            <select id="payment_method" name="payment_method" required>
+                                <option value="" disabled selected>Seleccionar...</option>
+                                <option value="debit card">Tarjeta de débito</option>
+                                <option value="paypal">PayPal</option>
+                                <option value="crypto">Criptomonedas</option>
+                                <option value="gift card">Tarjeta de regalo</option>
+                                <option value="credit card">Tarjeta de crédito</option>
+                            </select>
+
+                            <label for="device">Dispositivo</label>
+                            <select id="device" name="device" required>
+                                <option value="" disabled selected>Seleccionar...</option>
+                                <option value="tablet">Tablet</option>
+                                <option value="laptop">Laptop</option>
+                                <option value="mobile">Celular</option>
+                                <option value="tv">Televisión</option>
+                                <option value="desktop">Computador de escritorio</option>
+                            </select>
+
+                            <button type="submit">ANALIZAR CLIENTE</button>
+                        </form>
+
+                        <div id="resultado" class="resultado hidden"></div>
+                    </div>
+
+                    <!-- API PREVIEW -->
+                    <div class="card">
+                        <h2>📡 Vista Previa de la API</h2>
+                        <pre id="apiPreview" class="api-box"></pre>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN BÚSQUEDA -->
+        <section class="seccion hidden" id="busqueda">
+            <div class="card-layout">
+                <div class="card search-container">
+                    <h2>🔍 Búsqueda de Cliente</h2>
+
+                    <label for="clientId">ID del Cliente</label>
+                    <input type="text" id="clientId" placeholder="Ej: CUS-6BF81F27">
+
+                    <button onclick="buscarCliente()">BUSCAR CLIENTE</button>
+
+                    <div id="resultadoBusqueda" class="resultado hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN ESTADÍSTICAS -->
+        <section class="seccion hidden" id="stats">
+            <div class="card">
+                <div class="stats-header">
+                    <h2 style="text-align: center; color: #00c6ff; margin:0; padding:0;">📈 Análisis Avanzado</h2>
+                    <!-- Botón exportar PDF en esquina superior derecha -->
+                    <button id="exportPdfBtn" class="export-btn" onclick="exportChartsToPDF()">Exportar a PDF</button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="chart-card">
+                        <canvas id="chartRiesgo"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <canvas id="chartSubscription"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <canvas id="chartRegion"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <canvas id="chartAge"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <!-- SECCIÓN MANUAL -->
-    <section class="seccion" id="manual">
-        <div class="card-layout">
-            <div class="grid-manual">
-
-                <!-- FORMULARIO -->
-                <div class="card">
-                    <h2>📊 Datos del Cliente</h2>
-
-                    <form id="churnForm">
-                        <label for="age">Edad</label>
-                        <input type="number" id="age" placeholder="Ej: 52" required>
-
-                        <label for="gender">Género</label>
-                        <select id="gender" required>
-                            <option value="" disabled selected>Seleccionar...</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-
-                        <label for="subscription_type">Tipo de Suscripción</label>
-                        <select id="subscription_type" required>
-                            <option value="" disabled selected>Seleccionar...</option>
-                            <option value="Basic">Basic</option>
-                            <option value="Standard">Standard</option>
-                            <option value="Premium">Premium</option>
-                        </select>
-
-                        <label for="watch_hours">Horas de Visualización</label>
-                        <input type="number" step="0.1" id="watch_hours" placeholder="Ej: 1.1" required>
-
-                        <label for="region">Región</label>
-                        <select id="region" required>
-                            <option value="" disabled selected>Seleccionar...</option>
-                            <option value="Africa">África</option>
-                            <option value="Europe">Europa</option>
-                            <option value="Asia">Asia</option>
-                            <option value="Oceania">Oceanía</option>
-                            <option value="SouthAmerica">Sudamérica</option>
-                            <option value="NorthAmerica">América del Norte</option>
-                        </select>
-
-                        <label for="number_of_profiles">Número de perfiles</label>
-                        <input type="number" id="number_of_profiles" placeholder="Ej: 3" required>
-
-                        <label for="payment_method">Metódo de pago</label>
-                        <select id="payment_method" required>
-                            <option value="" disabled selected>Seleccionar...</option>
-                            <option value="debit card">Tarjeta de débito</option>
-                            <option value="payPal">Paypal</option>
-                            <option value="crypto">Criptomonedas</option>
-                            <option value="gift card">Tarjeta de regalo</option>
-                            <option value="credit card">Tarjeta de crédito</option>
-                        </select>
-
-                        <label for="device">Dispositivo</label>
-                        <select id="device" required>
-                            <option value="" disabled selected>Seleccionar...</option>
-                            <option value="tablet">Tablet</option>
-                            <option value="laptop">Laptop</option>
-                            <option value="mobile">Celular</option>
-                            <option value="tv">Televisión</option>
-                            <option value="desktop">Computador de escritorio</option>
-                        </select>
-
-                        <button type="submit">ANALIZAR CLIENTE</button>
-                    </form>
-
-                    <div id="resultado" class="resultado hidden"></div>
-                </div>
-
-                <!-- API PREVIEW -->
-                <div class="card">
-                    <h2>📡 Configuración de la API</h2>
-                    <pre id="apiPreview" class="api-box">
-POST /predict
-Content-Type: application/json
-
-{
-  "age": 0,
-  "gender": "",
-  "subscription_type": "",
-  "watch_hours": 0,
-  "region": "",
-  "number_of_profiles": 0,
-  "payment_method": "",
-  "device": "",                      
-}
-                        </pre>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN BÚSQUEDA -->
-    <section class="seccion hidden" id="busqueda">
-        <div class="card-layout">
-            <div class="card search-container">
-                <h2>🔍 Búsqueda de Cliente</h2>
-
-                <label for="clientId">ID del Cliente</label>
-                <input type="text" id="clientId" placeholder="Ej: CUS-6BF81F27">
-
-                <button onclick="buscarCliente()">BUSCAR CLIENTE</button>
-
-                <div id="resultadoBusqueda" class="resultado hidden"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECCIÓN ESTADÍSTICAS -->
-    <section class="seccion hidden" id="stats">
-        <div class="card">
-            <div class="stats-header">
-                <h2 style="text-align: center; color: #00c6ff; margin:0; padding:0;">📈 Análisis Avanzado</h2>
-                <!-- Botón exportar PDF en esquina superior derecha -->
-                <button id="exportPdfBtn" class="export-btn" onclick="exportChartsToPDF()">Exportar a PDF</button>
-            </div>
-
-            <div class="stats-grid">
-                <div class="chart-card">
-                    <canvas id="chartRiesgo"></canvas>
-                </div>
-                <div class="chart-card">
-                    <canvas id="chartSubscription"></canvas>
-                </div>
-                <div class="chart-card">
-                    <canvas id="chartRegion"></canvas>
-                </div>
-                <div class="chart-card">
-                    <canvas id="chartAge"></canvas>
-                </div>
-            </div>
-        </div>
-    </section>
-
-</div>
-
-<!-- SCRIPTS -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- jsPDF UMD -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="/js/app.js"></script>
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- jsPDF UMD -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="/js/app.js"></script>
 </body>
+
 </html>

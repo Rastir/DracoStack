@@ -128,12 +128,14 @@ document
             gender: document.getElementById("gender").value,
             subscription_type: document.getElementById("subscription_type").value,
             watch_hours: parseFloat(document.getElementById("watch_hours").value),
-            number_of_profiles: parseInt(
-                document.getElementById("number_of_profiles").value),
+            number_of_profiles: parseInt(document.getElementById("number_of_profiles").value),
             region: document.getElementById("region").value,
             payment_method: document.getElementById("payment_method").value,
             device: document.getElementById("device").value
         };
+
+        // Debug: ver qué se está enviando
+        console.log("📤 Enviando datos:", data);
 
         // Preview API
         document.getElementById("apiPreview").textContent =
@@ -145,26 +147,39 @@ document
                 "https://definitely-poetry-few-bachelor.trycloudflare.com/predict",
                 {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: { 
+                        "Content-Type": "application/json"
+                    },
                     body: JSON.stringify(data)
                 }
             );
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                console.error("❌ Error API:", errorData);
+                throw new Error(JSON.stringify(errorData));
+            }
 
             const result = await response.json();
             const resDiv = document.getElementById("resultado");
 
             resDiv.classList.remove("hidden");
             resDiv.innerHTML = `
-                <h3>Resultado</h3>
+                <h3>✅ Resultado</h3>
                 <p><strong>Predicción:</strong> ${
-                    result.prediction === 1 ? "Cancela" : "No Cancela"
+                    result.prediction === 1 ? "🔴 Cancela" : "🟢 No Cancela"
                 }</p>
                 <p><strong>Probabilidad de churn:</strong> ${
                     (result.probabilities.churn * 100).toFixed(2)
                 }%</p>
             `;
         } catch (error) {
-            alert("Error API");
+            console.error("❌ Error:", error);
+            document.getElementById("resultado").classList.remove("hidden");
+            document.getElementById("resultado").innerHTML = `
+                <h3>❌ Error</h3>
+                <p>${error.message}</p>
+            `;
         }
     });
 
