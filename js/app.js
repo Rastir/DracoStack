@@ -199,6 +199,9 @@ async function cargarGraficas() {
             fetch("https://definitely-poetry-few-bachelor.trycloudflare.com/probability/age").then(r => r.json())
         ]);
 
+        console.log("📊 Datos recibidos:", { genero, region, suscripcion, edad });
+
+        // Los datos ahora vienen en formato: { totalUsers: X, data: [...] }
         dibujarGrafica(genero.data, "chartRiesgo", "bar", "Género");
         dibujarGrafica(region.data, "chartRegion", "bar", "Región", true);
         dibujarGrafica(suscripcion.data, "chartSubscription", "doughnut", "Suscripción");
