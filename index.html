@@ -3,8 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Análisis de Churn</title>
+    <title>Dracostack</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/img/Logo.png">
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 
@@ -17,10 +18,20 @@
                 <img src="/img/logo.png" alt="Empresa" class="logo">
                 <div class="header-text">
                     <h1>Análisis de Churn</h1>
-                    <p>Predicción Inteligente de Cancelamiento de Clientes</p>
+                    <h3>Predicción Inteligente de Cancelamiento de Clientes</h3>
                 </div>
             </div>
         </header>
+
+        <!-- INTRO -->
+        <section class="intro">
+            <p>
+                Esta plataforma permite analizar el riesgo de cancelación (churn) de clientes
+                utilizando modelos de Machine Learning. A través de distintas vistas,
+                puedes realizar predicciones individuales, consultar clientes existentes
+                y explorar análisis agregados para la toma de decisiones.
+            </p>
+        </section>
 
         <!-- TABS -->
         <div class="tabs">
@@ -42,6 +53,14 @@
 
                     <!-- FORMULARIO -->
                     <div class="card">
+                        <div class="section-guide">
+                            <h2>Predicción Manual de Churn</h2>
+                            <p>
+                                Ingresa las características de un cliente para estimar su probabilidad
+                                de cancelación. Esta vista es ideal para análisis individuales o simulaciones
+                                de escenarios.
+                            </p>
+                        </div>
                         <h2>📊 Datos del Cliente</h2>
 
                         <form id="churnForm">
@@ -110,8 +129,22 @@
 
                     <!-- API PREVIEW -->
                     <div class="card">
-                        <h2>📡 Vista Previa de la API</h2>
-                        <pre id="apiPreview" class="api-box"></pre>
+                        <h2>📡 Configuración de la API</h2>
+                        <pre id="apiPreview" class="api-box">
+POST /predict
+Content-Type: application/json
+
+{
+  "age": 0,
+  "gender": "",
+  "subscription_type": "",
+  "watch_hours": 0,
+  "region": "",
+  "number_of_profiles": 0,
+  "payment_method": "",
+  "device": ""
+}
+</pre>
                     </div>
 
                 </div>
@@ -123,6 +156,11 @@
             <div class="card-layout">
                 <div class="card search-container">
                     <h2>🔍 Búsqueda de Cliente</h2>
+
+                    <p class="helper-text">
+                        Consulta un cliente existente utilizando su identificador público (CUS-XXXX).
+                        Esta opción permite analizar clientes reales de la base de datos.
+                    </p>
 
                     <label for="clientId">ID del Cliente</label>
                     <input type="text" id="clientId" placeholder="Ej: CUS-6BF81F27">
@@ -138,7 +176,14 @@
         <section class="seccion hidden" id="stats">
             <div class="card">
                 <div class="stats-header">
-                    <h2 style="text-align: center; color: #00c6ff; margin:0; padding:0;">📈 Análisis Avanzado</h2>
+                    <div class="stats-title">
+                        <h2>📈 Análisis Avanzado</h2>
+                        <p class="helper-text">
+                            Visualiza patrones globales de churn segmentados por género, tipo de suscripción,
+                            región y edad.
+                            <br>Estas métricas apoyan la toma de decisiones estratégicas.</br>
+                        </p>
+                    </div>
                     <!-- Botón exportar PDF en esquina superior derecha -->
                     <button id="exportPdfBtn" class="export-btn" onclick="exportChartsToPDF()">Exportar a PDF</button>
                 </div>
@@ -146,16 +191,76 @@
                 <div class="stats-grid">
                     <div class="chart-card">
                         <canvas id="chartRiesgo"></canvas>
+                        <div class="chart-description">
+                            <p>
+                                Esta gráfica compara la proporción de clientes que cancelan y no cancelan
+                                según el género.
+                            </p>
+                            <p class="insight">
+                                <strong>Insight:</strong> Los porcentajes de churn son homogéneos entre hombres,
+                                mujeres y otros, lo que sugiere que el género no es un factor determinante
+                                en la cancelación.
+                            </p>
+                            <p class="implication">
+                                <strong>Implicación:</strong> Esta variable aporta poco poder predictivo de forma
+                                aislada y debe analizarse en conjunto con otros atributos.
+                            </p>
+                        </div>
                     </div>
+
                     <div class="chart-card">
                         <canvas id="chartSubscription"></canvas>
+                        <div class="chart-description">
+                            <p>
+                                Comparación del churn entre planes básicos, estándar y premium.
+                            </p>
+                            <p class="insight">
+                                <strong>Insight:</strong> La mayor concentración de cancelaciones se presenta en
+                                las suscripciones básicas.
+                            </p>
+                            <p class="implication">
+                                <strong>Implicación:</strong> Los clientes con planes básicos son un segmento clave
+                                para estrategias de retención y mejora de valor percibido.
+                            </p>
+                        </div>
                     </div>
+
                     <div class="chart-card">
                         <canvas id="chartRegion"></canvas>
+                        <div class="chart-description">
+                            <p>
+                                Análisis del comportamiento de cancelación según la ubicación geográfica
+                                de los clientes.
+                            </p>
+                            <p class="insight">
+                                <strong>Insight:</strong> Europa presenta una mayor tendencia a la cancelación,
+                                mientras que Norteamérica muestra un comportamiento más equilibrado.
+                            </p>
+                            <p class="implication">
+                                <strong>Implicación:</strong> La región puede reflejar diferencias de mercado,
+                                competencia o expectativas del servicio, siendo relevante para decisiones
+                                estratégicas.
+                            </p>
+                        </div>
                     </div>
+
                     <div class="chart-card">
                         <canvas id="chartAge"></canvas>
+                        <div class="chart-description">
+                            <p>
+                                Relación entre la edad del cliente y su probabilidad de cancelación.
+                            </p>
+                            <p class="insight">
+                                <strong>Insight:</strong> Se observa menor churn en edades cercanas a 36 y 68 años,
+                                y una mayor tendencia a la cancelación entre los 47 y 54 años.
+                            </p>
+                            <p class="implication">
+                                <strong>Implicación:</strong> La edad presenta una relación no lineal con el churn,
+                                aportando valor predictivo al modelo.
+                            </p>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -167,6 +272,17 @@
     <!-- jsPDF UMD -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="/js/app.js"></script>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <p>
+            Proyecto de Análisis de Churn · Machine Learning aplicado a Retención de Clientes
+        </p>
+        <p class="footer-small">
+            Hackathon NoCountry & Alura LATAM · Modelo predictivo con enfoque en interpretabilidad y toma de decisiones
+        </p>
+    </footer>
+    
 </body>
 
 </html>
