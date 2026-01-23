@@ -77,6 +77,7 @@ body {
     cursor: pointer;
     font-weight: bold;
     transition: all 0.3s ease;
+    white-space: nowrap; 
 }
 
 .tab-btn.active {
@@ -92,6 +93,7 @@ body {
     justify-content: center;
     gap: 24px;
     width: 100%;
+    flex-wrap: wrap; 
 }
 
 .section-guide {
@@ -116,6 +118,7 @@ body {
     border-radius: 12px;
     padding: 30px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%; 
 }
 
 
@@ -181,16 +184,18 @@ form select,
     padding: 20px;
     border-radius: 12px;
     height: auto; 
-    min-height: 500px; 
+    min-height: 400px; /* CAMBIADO: reducido de 500px a 400px */
     display: flex;
     flex-direction: column;
 }
 
 .chart-card canvas {
     flex: 1; 
-    min-height: 250px; 
+    min-height: 200px; /* CAMBIADO: reducido de 250px a 200px */
     max-height: 300px; 
-}
+    width: 100% !important; 
+    height: auto !important;
+} 
 
 
 .chart-description {
@@ -249,6 +254,7 @@ form select,
     color: #00ffcc;
     border: 1px solid rgba(255, 255, 255, 0.1);
     overflow-x: auto;
+    font-size: 14px; 
 }
 
 .search-container {
@@ -281,6 +287,8 @@ button:hover {
     justify-content: space-between;
     align-items: flex-start;
     margin-bottom: 20px;
+    gap: 15px; 
+    flex-wrap: wrap; 
 }
 
 .export-btn {
@@ -292,6 +300,7 @@ button:hover {
     font-weight: bold;
     border: none;
     align-self: flex-start;
+    margin-top: 0; 
 }
 
 .export-btn:hover {
@@ -325,10 +334,20 @@ button:hover {
 
 /*RESPONSIVE*/
 
+/* TABLET GRANDE (≤1024px) */
+@media (max-width: 1024px) {
+    .stats-grid {
+        grid-template-columns: 1fr; /* Una columna en tablets */
+    }
+    
+    .chart-card {
+        min-height: 350px; /* Altura menor en tablets */
+    }
+}
+
 /* TABLET Y MOBILE (≤900px) */
 @media (max-width: 900px) {
 
-    /* Layout principal */
     .grid-manual,
     .stats-grid {
         grid-template-columns: 1fr;
@@ -338,10 +357,17 @@ button:hover {
         flex-direction: column;
     }
 
-    /* Header general */
     .header-left {
         flex-direction: column;
         text-align: center;
+    }
+    
+    .logo {
+        width: 150px;
+    }
+    
+    .container {
+        padding: 15px;
     }
 }
 
@@ -349,7 +375,10 @@ button:hover {
 /*MOBILE PEQUEÑO (≤700px)*/
 @media (max-width: 700px) {
 
-    /* Header de estadísticas */
+    .tabs {
+        flex-wrap: wrap;
+    }
+
     .stats-header {
         flex-direction: column;
         gap: 15px;
@@ -362,11 +391,53 @@ button:hover {
 
     .export-btn {
         align-self: center;
+        width: 100%; 
     }
 
-    /* Textos */
     .helper-text {
         font-size: 13px;
     }
+    
+    .card {
+        padding: 20px;
+    }
+    
+    .chart-card {
+        min-height: 300px;
+        padding: 15px;
+    }
+    
+    .chart-card canvas {
+        min-height: 150px;
+    }
+    
+    .logo {
+        width: 120px;
+    }
+    
+    .header-text h1 {
+        font-size: 1.5rem;
+    }
+    
+    .header-text h3 {
+        font-size: 1rem;
+    }
 }
 
+/* MOBILE MUY PEQUEÑO (≤480px) */
+@media (max-width: 480px) {
+    .tabs {
+        gap: 8px;
+        padding: 8px;
+    }
+    
+    .tab-btn {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    
+    .api-box {
+        font-size: 12px;
+        padding: 10px;
+    }
+}
